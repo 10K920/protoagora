@@ -19,6 +19,7 @@
         <module>topic-service</module>
         <module>choose-side-service</module>
         <module>opinion-service</module>
+        <module>discovery-server</module>
     </modules>
 
     <properties>
