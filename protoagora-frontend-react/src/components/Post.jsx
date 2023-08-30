@@ -43,11 +43,18 @@ const Post = ({ data, forceUpdate }) => {
             option = false;
         }
 
+        const headers = {
+            'Content-Type': 'application/json;charset=UTF-8',
+            'Access-Control-Allow-Origin': '*'
+        };
+
         try {
-            const response = await axios.post("http://localhost:8081/api/choose_side", {
+            const response = await axios.post("http://localhost:8080/api/choose_side/addChosenSide", {
                 "topicId": topicId,
                 "userId": 1010,
                 "side": option
+            }, {
+                headers: headers
             });
             
             setVoteOptionModal(false);

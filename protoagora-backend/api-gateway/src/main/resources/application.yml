@@ -1,0 +1,8 @@
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: topic-service
+          uri: lb://topic-service
+          predicates:
+            - Path=/api/topic

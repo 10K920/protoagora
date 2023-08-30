@@ -18,7 +18,7 @@ public class ChooseSideController {
 
     private final ChooseSideService chooseSideService;
 
-    @PostMapping
+    @PostMapping("/addChosenSide")
     @ResponseStatus(HttpStatus.CREATED)
     public void addChosenSide(@RequestBody ChooseSideRequest chooseSideRequest) { chooseSideService.addChosenSide(chooseSideRequest); }
 
