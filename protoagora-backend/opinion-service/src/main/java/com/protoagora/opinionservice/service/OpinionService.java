@@ -17,7 +17,7 @@ import java.util.List;
 public class OpinionService {
 
     private final OpinionRepository opinionRepository;
-    private final WebClient webClient;
+    private final WebClient.Builder webClientBuilder;
 
     public void addOpinion(OpinionRequest opinionRequest){
         Opinion opinion = new Opinion();
@@ -30,9 +30,9 @@ public class OpinionService {
         // Call topic service
         // to update the count for the option chosen by the user
         String topicId = opinionRequest.getTopicId().toString();
-        String apiUrl = "http://localhost:8080/api/topic/incrementOpinionCount";
+        String apiUrl = "http://topic-service/api/topic/incrementOpinionCount";
 
-        Boolean result = webClient.get()
+        Boolean result = webClientBuilder.build().get()
                 .uri(apiUrl, uriBuilder -> uriBuilder.queryParam("topicId", topicId).build())
                 .retrieve()
                 .bodyToMono(Boolean.class)

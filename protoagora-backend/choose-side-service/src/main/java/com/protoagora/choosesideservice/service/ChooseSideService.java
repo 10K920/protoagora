@@ -18,7 +18,7 @@ import java.util.List;
 public class ChooseSideService {
 
     private final ChooseSideRepository chooseSideRepository;
-    private final WebClient webClient;
+    private final WebClient.Builder webClientBuilder;
 
     public void addChosenSide(ChooseSideRequest chooseSideRequest){
         ChooseSide chooseSide = new ChooseSide();
@@ -30,7 +30,7 @@ public class ChooseSideService {
         // to update the count for the option chosen by the user
         Boolean option = chooseSideRequest.getSide();
         String topicId = chooseSideRequest.getTopicId().toString();
-        String apiUrl = "http://localhost:8080/api/topic/";
+        String apiUrl = "http://topic-service/api/topic/";
 
         if (option) {
             apiUrl += "incrementOption1";
@@ -39,7 +39,7 @@ public class ChooseSideService {
             apiUrl += "incrementOption2";
         }
 
-        Boolean result = webClient.get()
+        Boolean result = webClientBuilder.build().get()
                 .uri(apiUrl, uriBuilder -> uriBuilder.queryParam("topicId", topicId).build())
                 .retrieve()
                 .bodyToMono(Boolean.class)
