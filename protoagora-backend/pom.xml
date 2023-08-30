@@ -20,6 +20,7 @@
         <module>choose-side-service</module>
         <module>opinion-service</module>
         <module>discovery-server</module>
+        <module>api-gateway</module>
     </modules>
 
     <properties>
