@@ -4,6 +4,7 @@ import com.protoagora.topicservice.dto.TopicRequest;
 import com.protoagora.topicservice.dto.TopicResponse;
 import com.protoagora.topicservice.model.Topic;
 import com.protoagora.topicservice.repository.TopicRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -32,7 +33,7 @@ public class TopicService {
         topicRepository.save(topic);
         log.info("Topic {} is posted", topic.getId());
     }
-
+    
     public boolean incrementOption1Count(Long topicId){
         Topic topic = topicRepository.findById(topicId).orElse(null);
         if (topic != null) {

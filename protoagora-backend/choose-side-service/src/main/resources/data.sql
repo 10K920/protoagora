@@ -1,0 +1,1 @@
+CREATE DATABASE IF NOT EXISTS 'choose_side_service';

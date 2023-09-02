@@ -3,6 +3,13 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
+### Dockerfile ###
+api-gateway/Dockerfile
+choose-side-service/Dockerfile
+discovery-server/Dockerfile
+opinion-service/Dockerfile
+topic-service/Dockerfile
+
 ### IntelliJ IDEA ###
 .idea/modules.xml
 .idea/jarRepositories.xml

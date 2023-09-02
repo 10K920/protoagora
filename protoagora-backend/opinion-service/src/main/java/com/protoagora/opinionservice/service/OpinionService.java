@@ -4,6 +4,7 @@ import com.protoagora.opinionservice.dto.OpinionRequest;
 import com.protoagora.opinionservice.dto.OpinionResponse;
 import com.protoagora.opinionservice.model.Opinion;
 import com.protoagora.opinionservice.repository.OpinionRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -13,13 +14,14 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 @Slf4j
 public class OpinionService {
 
     private final OpinionRepository opinionRepository;
     private final WebClient.Builder webClientBuilder;
 
-    public void addOpinion(OpinionRequest opinionRequest){
+    public String addOpinion(OpinionRequest opinionRequest){
         Opinion opinion = new Opinion();
         opinion.setTopicId(opinionRequest.getTopicId());
         opinion.setUserId(opinionRequest.getUserId());
@@ -40,12 +42,14 @@ public class OpinionService {
 
         if (Boolean.TRUE.equals(result)) {
             opinionRepository.save(opinion);
+            log.info("{} added opinion to side {}", opinion.getUserId(), opinion.getSide());
+            return "Opinion Added Successfully";
         }
         else {
             throw new IllegalArgumentException("topicId is invalid!");
         }
 
-        log.info("{} added opinion to side {}", opinion.getUserId(), opinion.getSide());
+
     }
 
     public List<OpinionResponse> getUserOpinions(Long userId){

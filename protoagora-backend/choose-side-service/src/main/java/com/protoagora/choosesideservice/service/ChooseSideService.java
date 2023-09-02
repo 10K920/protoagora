@@ -4,6 +4,7 @@ import com.protoagora.choosesideservice.dto.ChooseSideRequest;
 import com.protoagora.choosesideservice.dto.ChooseSideResponse;
 import com.protoagora.choosesideservice.model.ChooseSide;
 import com.protoagora.choosesideservice.repository.ChooseSideRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -14,13 +15,14 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 @Slf4j
 public class ChooseSideService {
 
     private final ChooseSideRepository chooseSideRepository;
     private final WebClient.Builder webClientBuilder;
 
-    public void addChosenSide(ChooseSideRequest chooseSideRequest){
+    public String addChosenSide(ChooseSideRequest chooseSideRequest){
         ChooseSide chooseSide = new ChooseSide();
         chooseSide.setTopicId(chooseSideRequest.getTopicId());
         chooseSide.setUserId(chooseSideRequest.getUserId());
@@ -47,12 +49,12 @@ public class ChooseSideService {
 
         if (Boolean.TRUE.equals(result)) {
             chooseSideRepository.save(chooseSide);
+            log.info("{} choose side {}", chooseSide.getUserId(), chooseSide.getSide());
+            return "Side Chosen Successfully";
         }
         else {
             throw new IllegalArgumentException("topicId is invalid!");
         }
-
-        log.info("{} choose side {}", chooseSide.getUserId(), chooseSide.getSide());
     }
 
     public ChooseSideResponse getThisTopicUserSide(Long topicId, Long userId) {
