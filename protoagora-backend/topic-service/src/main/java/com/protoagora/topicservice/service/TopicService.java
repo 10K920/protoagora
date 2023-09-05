@@ -68,6 +68,8 @@ public class TopicService {
     public List<TopicResponse> getAllTopics() {
         List<Topic> topics = topicRepository.findAll();
 
+        log.info("Here are the latest posts!");
+
         return topics.stream().map(this::mapToTopicResponse).toList();
     }
 

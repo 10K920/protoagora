@@ -9,13 +9,18 @@ const Feed = () => {
   console.log("reducer value: " + reducerValue);
 
   useEffect(() => {
-    axios.get('http://localhost:8080/api/topic/get_all_topics')
-    .then(response => {
-      setPostData(response.data);
+    axios.get('http://localhost:8080/api/topic/get_all_topics', {}, {
+      headers: {
+        
+        "Access-Control-Allow-Origin": "http://localhost:3000",
+      }
     })
-    .catch(error => {
-      console.error('Error fetching data:', error);
-    })
+      .then(response => {
+        setPostData(response.data);
+      })
+      .catch(error => {
+        console.error('Error fetching data:', error);
+      })
   }, [reducerValue]);
 
   const updateReducerValue = () => {
@@ -25,7 +30,7 @@ const Feed = () => {
   return (
     <Box flex={4} p={2}>
       {postData.map(row => (
-        <Post 
+        <Post
           key={row.id}
           data={row}
           forceUpdate={updateReducerValue}

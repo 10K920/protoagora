@@ -17,11 +17,10 @@ import java.util.concurrent.CompletableFuture;
 @RestController
 @RequestMapping("/api/choose_side")
 @RequiredArgsConstructor
-@CrossOrigin
+@CrossOrigin()
 public class ChooseSideController {
 
     private final ChooseSideService chooseSideService;
-
     @PostMapping("/addChosenSide")
     @ResponseStatus(HttpStatus.CREATED)
     @CircuitBreaker(name = "topic", fallbackMethod = "fallbackMethod")
